@@ -10,6 +10,7 @@ public class BookingSchedulerTest {
 
 	@Test
 	public void testName() throws Exception {
+		// test
 		fail();
 	}
 }
