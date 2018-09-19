@@ -70,6 +70,23 @@ public class BookingSchedulerTest {
 //		assertThat(bookingScheduler.hasSchedule(schedule),
 //							is(true));
 	}
+	
+	@Test
+	public void sendSMSToCustomer() throws Exception {
+		// arrange
+		TestableSmsSender testableSmsSender
+			= new TestableSmsSender();
+		bookingScheduler.setSmsSender(testableSmsSender);
+		Schedule schedule = 
+				new Schedule(ON_THE_HOUR, NUMBER_OF_PEOPLE, CUSTOMER);
+		
+		// act
+		bookingScheduler.addSchedule(schedule);
+		
+		// assert
+		assertThat(testableSmsSender.isSendMethodIsCalled()
+				, is(true));
+	}
 
 	
 	
