@@ -8,16 +8,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.junit.Before;
 import org.junit.Test;
 
 public class BookingSchedulerTest {
 	private static final int NUMBER_OF_PEOPLE = 1;
 	private static final int CAPACITY = 3;
-	public static final Customer CUSTOMER = new Customer("NAME", "010-1111-1111");
-	public static final DateTime NOT_ON_THE_HOUR = new DateTime(2018,9,19,15,5);
-	public static final DateTime ON_THE_HOUR = new DateTime(2018,9,19,15,0);
-
-	BookingScheduler bookingScheduler = new BookingScheduler(CAPACITY);
+	private static final Customer CUSTOMER = new Customer("NAME", "010-1111-1111");
+	private static final DateTime NOT_ON_THE_HOUR = new DateTime(2018,9,19,15,5);
+	private static final DateTime ON_THE_HOUR = new DateTime(2018,9,19,15,0);
+	
+	private List<Schedule> schedules = new ArrayList<Schedule>();
+	private BookingScheduler bookingScheduler = new BookingScheduler(CAPACITY);
+	
+	@Before
+	public void setUp() {
+		bookingScheduler.setSchedules(schedules );
+	}
 	
 	@Test(expected=RuntimeException.class)
 	public void throwAnExceptionWhenBookingTimeIsNotOnTheHour() throws Exception {
@@ -49,13 +56,9 @@ public class BookingSchedulerTest {
 	@Test(expected=RuntimeException.class)
 	public void throwAnExceptionWhenCapacityPerHourIsOver() throws Exception {
 		// arrange
-		
-		List<Schedule> schedules 
-			= new ArrayList<Schedule>();
 		Schedule fullSchedule 
 			= new Schedule(ON_THE_HOUR, CAPACITY, CUSTOMER);
 		schedules.add(fullSchedule );
-		bookingScheduler.setSchedules(schedules );
 		
 		Schedule schedule = 
 				new Schedule(ON_THE_HOUR, NUMBER_OF_PEOPLE, CUSTOMER);
@@ -67,6 +70,8 @@ public class BookingSchedulerTest {
 //		assertThat(bookingScheduler.hasSchedule(schedule),
 //							is(true));
 	}
+
+	
 	
 	
 }
