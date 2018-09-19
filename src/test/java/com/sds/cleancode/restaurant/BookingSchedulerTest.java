@@ -10,7 +10,7 @@ import org.junit.Test;
 public class BookingSchedulerTest {
 
 	@Test(expected=RuntimeException.class)
-	public void testName() throws Exception {
+	public void throwAnExceptionWhenBookingTimeIsNotOnTheHour() throws Exception {
 		// arrange
 		BookingScheduler bookingScheduler
 			= new BookingScheduler(3);
@@ -25,5 +25,25 @@ public class BookingSchedulerTest {
 		bookingScheduler.addSchedule(schedule );
 		
 		// assert
+	}
+	
+	@Test
+	public void scheduleCanBeAddedWhenBookingTimeIsOnTheHour() throws Exception {
+		// arrange
+		BookingScheduler bookingScheduler
+			= new BookingScheduler(3);
+		DateTime dateTime 
+			= new DateTime(2018,9,19,15,0);
+		Customer customer 
+			= new Customer("NAME", "010-1111-1111");
+		Schedule schedule = 
+				new Schedule(dateTime, 1, customer);
+		
+		// act
+		bookingScheduler.addSchedule(schedule);
+		
+		// assert
+		assertThat(bookingScheduler.hasSchedule(schedule),
+							is(true));
 	}
 }
