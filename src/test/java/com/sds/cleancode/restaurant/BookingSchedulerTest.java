@@ -15,8 +15,11 @@ public class BookingSchedulerTest {
 	private static final int NUMBER_OF_PEOPLE = 1;
 	private static final int CAPACITY = 3;
 	private static final Customer CUSTOMER = new Customer("NAME", "010-1111-1111");
+	private static final Customer CUSTOMER_WITH_EMAIL = new Customer("NAME", "010-1111-1111", "abcd@gmail.com");
 	private static final DateTime NOT_ON_THE_HOUR = new DateTime(2018,9,19,15,5);
 	private static final DateTime ON_THE_HOUR = new DateTime(2018,9,19,15,0);
+	private TestableEmailSender testableEmailSender = new TestableEmailSender();
+	private TestableSmsSender testableSmsSender = new TestableSmsSender();
 	
 	private List<Schedule> schedules = new ArrayList<Schedule>();
 	private BookingScheduler bookingScheduler = new BookingScheduler(CAPACITY);
@@ -24,6 +27,8 @@ public class BookingSchedulerTest {
 	@Before
 	public void setUp() {
 		bookingScheduler.setSchedules(schedules );
+		bookingScheduler.setMailSender(testableEmailSender);
+		bookingScheduler.setSmsSender(testableSmsSender);
 	}
 	
 	@Test(expected=RuntimeException.class)
@@ -74,9 +79,8 @@ public class BookingSchedulerTest {
 	@Test
 	public void sendSMSToCustomer() throws Exception {
 		// arrange
-		TestableSmsSender testableSmsSender
-			= new TestableSmsSender();
-		bookingScheduler.setSmsSender(testableSmsSender);
+
+		
 		Schedule schedule = 
 				new Schedule(ON_THE_HOUR, NUMBER_OF_PEOPLE, CUSTOMER);
 		
@@ -85,6 +89,22 @@ public class BookingSchedulerTest {
 		
 		// assert
 		assertThat(testableSmsSender.isSendMethodIsCalled()
+				, is(true));
+	}
+	
+	@Test
+	public void sendEmailToCustomerWhenEmailIsValid() throws Exception {
+		// arrange
+
+		
+		Schedule schedule = 
+				new Schedule(ON_THE_HOUR, NUMBER_OF_PEOPLE, CUSTOMER_WITH_EMAIL);
+		
+		// act
+		bookingScheduler.addSchedule(schedule);
+		
+		// assert
+		assertThat(testableEmailSender.isSendMailIsCalled()
 				, is(true));
 	}
 

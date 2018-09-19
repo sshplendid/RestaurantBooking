@@ -38,13 +38,13 @@ public class BookingScheduler {
 		}
 			
 		
-		/*
+		
 		// throw an exception on sunday
 		DateTime now = new DateTime();
 		if(now.getDayOfWeek() == DateTimeConstants.SUNDAY){
 			throw new RuntimeException("Booking system is not available on sunday");
 		}
-		*/
+		
 		
 		schedules.add(schedule);
 		
