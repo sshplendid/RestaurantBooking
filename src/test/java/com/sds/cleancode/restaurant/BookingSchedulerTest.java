@@ -18,6 +18,7 @@ public class BookingSchedulerTest {
 	private static final Customer CUSTOMER_WITH_EMAIL = new Customer("NAME", "010-1111-1111", "abcd@gmail.com");
 	private static final DateTime NOT_ON_THE_HOUR = new DateTime(2018,9,19,15,5);
 	private static final DateTime ON_THE_HOUR = new DateTime(2018,9,19,15,0);
+	private static final DateTime SUNDAY = new DateTime(2018,9,23,15,0);
 	private TestableEmailSender testableEmailSender = new TestableEmailSender();
 	private TestableSmsSender testableSmsSender = new TestableSmsSender();
 	
@@ -36,9 +37,17 @@ public class BookingSchedulerTest {
 		// arrange
 		Schedule schedule = 
 				new Schedule(NOT_ON_THE_HOUR, NUMBER_OF_PEOPLE, CUSTOMER);
+
+		try {
+			// act
+			bookingScheduler.addSchedule(schedule );
+			fail();
+		} catch (RuntimeException e) {
+			//assert
+			assertThat(e.getMessage(),is("Booking should be on the hour."));
+		}
 		
-		// act
-		bookingScheduler.addSchedule(schedule );
+		
 		
 		// assert
 	}
@@ -106,6 +115,26 @@ public class BookingSchedulerTest {
 		// assert
 		assertThat(testableEmailSender.isSendMailIsCalled()
 				, is(true));
+	}
+	
+	@Test(expected=RuntimeException.class)
+	public void throwAnExceptionOnSunday() throws Exception {
+		// arrange
+		BookingScheduler sundayBookingScheduler
+			= new TestableBookingScheduler(CAPACITY, SUNDAY);
+		
+		Schedule schedule = 
+				new Schedule(ON_THE_HOUR, NUMBER_OF_PEOPLE, CUSTOMER_WITH_EMAIL);
+		
+		// act
+		sundayBookingScheduler.addSchedule(schedule);
+		
+		// assert
+	}
+	
+	@Test
+	public void test() throws Exception {
+		fail();
 	}
 
 	

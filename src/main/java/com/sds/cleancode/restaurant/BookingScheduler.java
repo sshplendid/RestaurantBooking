@@ -40,7 +40,7 @@ public class BookingScheduler {
 		
 		
 		// throw an exception on sunday
-		DateTime now = new DateTime();
+		DateTime now = getNow();
 		if(now.getDayOfWeek() == DateTimeConstants.SUNDAY){
 			throw new RuntimeException("Booking system is not available on sunday");
 		}
@@ -54,6 +54,10 @@ public class BookingScheduler {
 		if(schedule.getCustomer().getEmail() != null){
 			mailSender.sendMail(schedule);
 		}
+	}
+
+	public DateTime getNow() {
+		return new DateTime();
 	}
 	
 	public boolean hasSchedule(Schedule schedule) {
