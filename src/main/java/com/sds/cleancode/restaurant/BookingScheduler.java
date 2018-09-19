@@ -21,7 +21,7 @@ public class BookingScheduler {
 	
 	public void addSchedule(Schedule schedule) {
 		
-		// throw an exception when booking time is on the hour.
+		// throw an exception when booking time is not on the hour.
 		if(schedule.getDateTime().getMinuteOfHour() != 0 ){
 			throw new RuntimeException("Booking should be on the hour.");
 		}
