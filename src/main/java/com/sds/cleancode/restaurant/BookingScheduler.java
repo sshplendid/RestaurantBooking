@@ -21,7 +21,7 @@ public class BookingScheduler {
 	
 	public void addSchedule(Schedule schedule) {
 		
-		// throw an exception when booking time is not on the hour.
+		// throw an exception when booking time is on the hour.
 		if(schedule.getDateTime().getMinuteOfHour() != 0 ){
 			throw new RuntimeException("Booking should be on the hour.");
 		}
@@ -36,15 +36,12 @@ public class BookingScheduler {
 		if (numberOfPeople > capacityPerHour){
 			throw new RuntimeException("Number of people is over restaurant capacity per hour");
 		}
-			
-		
 		
 		// throw an exception on sunday
 		DateTime now = getNow();
 		if(now.getDayOfWeek() == DateTimeConstants.SUNDAY){
 			throw new RuntimeException("Booking system is not available on sunday");
 		}
-		
 		
 		schedules.add(schedule);
 		
