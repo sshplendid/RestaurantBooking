@@ -102,7 +102,6 @@ public class BookingSchedulerTest {
 	
 	@Test
 	public void 일요일인_경우_예외처리() {
-		//BookingScheduler bookingScheduler= new SundayBookingScheduler(MAX_CAPACITY);
 		String sunday= "2018/09/09 17:00";
 		try {
 			booking= new TestableBookingScheduler(MAX_CAPACITY, sunday);
@@ -116,7 +115,6 @@ public class BookingSchedulerTest {
 	
 	@Test
 	public void 일요일_아닌경우_예약성공() {
-		//BookingScheduler bookingScheduler= new MondayBookingScheduler(MAX_CAPACITY);
 		String monday= "2018/09/10 17:00";
 		booking= new TestableBookingScheduler(MAX_CAPACITY, monday);
 		Schedule schedule= new Schedule(ON_THE_HOUR, MAX_CAPACITY, CUSTOMER_WITH_MAIL);
