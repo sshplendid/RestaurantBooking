@@ -43,8 +43,13 @@ public class BookingSchedulerTest {
 	
 	@Test
 	public void 정시에_예약할_경우_예약성공() {
+		// Arrange
 		Schedule schedule= new Schedule(ON_THE_HOUR, UNDER_CAPACITY, CUSTOMER_WITHOUT_MAIL);
+		
+		// Act
 		booking.addSchedule(schedule);
+		
+		// Assert
 		assertThat(booking.hasSchedule(schedule), is(true));
 	}
 	
