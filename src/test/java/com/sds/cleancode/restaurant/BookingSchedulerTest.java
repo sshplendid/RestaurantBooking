@@ -26,6 +26,8 @@ public class BookingSchedulerTest {
 	private List<Schedule> schedules= new ArrayList<>();
 	private TestableMailSender testableMailSender= new TestableMailSender();
 	private TestableSmsSender testableSmsSender= new TestableSmsSender();
+	private MailSender mailSender= new MailSender();
+	private SmsSender smsSender= new SmsSender();
 	
 	@Before
 	public void setUp() {
@@ -101,7 +103,6 @@ public class BookingSchedulerTest {
 	public void email이_있는_경우_mail_발송() {
 		Schedule schedule= new Schedule(ON_THE_HOUR, MAX_CAPACITY, CUSTOMER_WITH_MAIL);
 		booking.addSchedule(schedule);
-		
 		assertThat(testableMailSender.getCountSendMailMethodIsCalled(), is(1));
 	}
 	
@@ -110,6 +111,11 @@ public class BookingSchedulerTest {
 		String sunday= "2018/09/09 17:00";
 		try {
 			booking= new TestableBookingScheduler(MAX_CAPACITY, sunday);
+			
+			booking.setSchedules(schedules);
+			booking.setSmsSender(testableSmsSender);
+			booking.setMailSender(testableMailSender);
+			
 			Schedule schedule= new Schedule(ON_THE_HOUR, MAX_CAPACITY, CUSTOMER_WITH_MAIL);
 			booking.addSchedule(schedule);
 			fail();
@@ -122,6 +128,24 @@ public class BookingSchedulerTest {
 	public void 일요일_아닌경우_예약성공() {
 		String monday= "2018/09/10 17:00";
 		booking= new TestableBookingScheduler(MAX_CAPACITY, monday);
+		
+		booking.setSchedules(schedules);
+		booking.setSmsSender(testableSmsSender);
+		booking.setMailSender(testableMailSender);
+		
+		Schedule schedule= new Schedule(ON_THE_HOUR, MAX_CAPACITY, CUSTOMER_WITH_MAIL);
+		booking.addSchedule(schedule);
+		assertThat(booking.hasSchedule(schedule), is(true));
+	}
+	
+	@Test
+	public void Testable_클래스_쓰지않고() {
+		booking= new BookingScheduler(MAX_CAPACITY);
+		
+		booking.setSchedules(schedules);
+		booking.setSmsSender(smsSender);
+		booking.setMailSender(mailSender);
+		
 		Schedule schedule= new Schedule(ON_THE_HOUR, MAX_CAPACITY, CUSTOMER_WITH_MAIL);
 		booking.addSchedule(schedule);
 		assertThat(booking.hasSchedule(schedule), is(true));
