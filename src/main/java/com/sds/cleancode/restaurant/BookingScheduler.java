@@ -43,6 +43,7 @@ public class BookingScheduler {
 		
 		// send SMS to customer
 		smsSender.send(schedule);
+		
 		// send E-mail to customer when e-mail is valid
 		if(schedule.getCustomer().getEmail() != null){
 			mailSender.sendMail(schedule);
