@@ -1,6 +1,5 @@
 package com.sds.cleancode.restaurant;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -13,10 +12,7 @@ public class BookingScheduler {
 	private MailSender mailSender;
 
 	public BookingScheduler(int capacityPerHour) {
-		this.schedules = new ArrayList<Schedule>();
 		this.capacityPerHour = capacityPerHour;
-		this.smsSender = new SmsSender();
-		this.mailSender = new MailSender();
 	}
 	
 	public void addSchedule(Schedule schedule) {
