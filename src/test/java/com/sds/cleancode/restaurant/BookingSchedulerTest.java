@@ -13,6 +13,8 @@ import org.joda.time.format.DateTimeFormatter;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.paopao.customer.Customer;
+
 public class BookingSchedulerTest {
 	private static final int UNDER_CAPACITY = 1;
 	private static final int MAX_CAPACITY = 3;

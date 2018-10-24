@@ -2,6 +2,8 @@ package com.sds.cleancode.restaurant;
 
 import org.joda.time.DateTime;
 
+import com.paopao.customer.Customer;
+
 public class Schedule {
 	private DateTime dateTime;
 	private int numberOfPeople;
