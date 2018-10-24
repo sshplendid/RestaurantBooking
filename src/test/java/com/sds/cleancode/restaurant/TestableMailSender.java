@@ -12,6 +12,6 @@ public class TestableMailSender extends {
 	 */   
 	
 	/*
-	 * #3. countSendMailMethodIsCalled 변수를 return 하는 메서드 
+	 * #3. countSendMailMethodIsCalled 변수를 리턴 하는 getCountSendMailMethodIsCalled 메서드 
 	 */
 }
