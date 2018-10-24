@@ -1,16 +1,17 @@
 package com.sds.cleancode.restaurant;
 
-public class TestableMailSender extends MailSender {
+public class TestableMailSender extends {
 
-	private int countSendMailMethodIsCalled;
+	/*
+	 * #1. mail 전송한 countSendMailMethodIsCalled 변수 선언 (int 형)
+	 */
 	
-
-	@Override
-	public void sendMail(Schedule schedule) {
-		countSendMailMethodIsCalled++;
-	}
+	/*
+	 * #2. MailSender의 sendMail이 구현한 내용이 없으므로 MailSender를  extends하여, sendMail을 Override 하고
+	 *     Override된 sendMail 함수가 호출될 때마다 countSendMailMethodIsCalled 변수 증가
+	 */   
 	
-	public int getCountSendMailMethodIsCalled() {
-		return countSendMailMethodIsCalled;
-	}
+	/*
+	 * #3. countSendMailMethodIsCalled 변수를 return 하는 메서드 
+	 */
 }
