@@ -4,6 +4,7 @@ public class TestableMailSender extends {
 
 	/*
 	 * #1. mail 전송한 countSendMailMethodIsCalled 변수 선언 (int 형)
+	 *     test commit
 	 */
 	
 	/*
